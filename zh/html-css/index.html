@@ -3,28 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZH</title>
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Search Results</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container"></div>
-    <!--
-        TODO:
-        Create HTML template here for search results and create a basic stylesheet for them above to achieve a look and feel as on the attached screenshot.
-        Feel free to introduce any kind of HTML and or CSS structure you think is necessary to achieve the desired result.
-
-        Use the following format for fields like: {{title}}, {{description}}
-        Keep in mind that the items in the template will receive the `.search-result-item` class.
-
-        Simply open this index.html file in your browser to see the result. Remebmer to refresh the page after each change in the code (or use something like live-server).
-
-        (dont' forget about the js task in ../js/index.js!)
-    -->
-    <div id="template">
-        <img src="https://placehold.co/64x64/000000/FFFFFF/png" alt="Logo" />
-        {{title}}
-        {{description}}
+    <div class="search-results-container" id="results-container">
     </div>
-    <script src="./mock.js"></script>
+
+    <script>
+        const searchResults = [
+            { title: "Title 1", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 2", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 3", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 4", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 5", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 6", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 7", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 8", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 9", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+            { title: "Title 10", description: "This is the description ".repeat(7), image: "https://placehold.co/64x64/000000/FFFFFF/png" },
+        ];
+
+        const resultsContainer = document.getElementById("results-container");
+
+        searchResults.forEach(result => {
+            const item = document.createElement("div");
+            item.classList.add("search-result-item");
+            item.innerHTML = `
+                <img src="${result.image}" alt="${result.title}">
+                <div class="search-result-content">
+                    <h2>${result.title}</h2>
+                    <p>${result.description}</p>
+                </div>
+            `;
+            resultsContainer.appendChild(item);
+        });
+    </script>
 </body>
 </html>

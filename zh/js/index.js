@@ -25,10 +25,16 @@
  * 
  */
 module.exports.createHttpHeaders = (input) => {
-    // TODO: your code here
-    return {};
-};
+    const headers = {};
 
+    input.forEach(header => {
+        const headerName = header[0];
+        const headerValues = header.slice(1).join(', ');
+        headers[headerName] = headerValues;
+    });
+
+    return headers;
+};
 /**
  * Returns items for a paginated list.
  * 
@@ -48,7 +54,27 @@ module.exports.createHttpHeaders = (input) => {
  *  { id: 1, title: { main: 'Item 1' }  }
  * ]
  */
-module.exports.getItems = (items, params) => {
-    // TODO: your code here
-    return [];
-}
+module.exports.getPaginatedItems = (items, params) => {
+    const { page, pageSize, sort } = params;
+
+    const sortedItems = items.sort((a, b) => {
+        if (sort === 'asc') {
+            return a.displayTitle.localeCompare(b.displayTitle);
+        } else if (sort === 'desc') {
+            return b.displayTitle.localeCompare(a.displayTitle);
+        }
+        return 0;
+    });
+
+    const startIndex = (page - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+    const paginatedItems = sortedItems.slice(startIndex, endIndex);
+
+    return paginatedItems.map(item => {
+        const title = item.title.replace(/<\/?[^>]+(>|$)/g, "");
+        return {
+            id: item.id,
+            title: { main: title }
+        };
+    });
+};
